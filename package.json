@@ -1,0 +1,15 @@
+{
+  "name": "babel-plugin-kimport",
+  "version": "1.0.0",
+  "description": "A component modular import plugin for babel ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "babel-plugin",
+    "import"
+  ],
+  "author": "cgj",
+  "license": "ISC"
+}

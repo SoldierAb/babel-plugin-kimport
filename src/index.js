@@ -1,10 +1,8 @@
 const babel = require('@babel/core');
 const types = require('@babel/types');
 
-// Babel将源码转换AST之后，通过遍历AST树（其实就是一个js对象），对树做一些修改，然后再将AST转成code，即成源码。
-
-let visitor = {
-    // import 语句解析时触发该函数
+const visitor = {
+    
     ImportDeclaration(path,{opts}) {  //path 语句抽象语法树 opts 插件参数
 
         let node = path.node;

@@ -78,7 +78,7 @@ export default function ({ types }) {
 						//当前组件路径
 						const compDirPath = winPath(join(libraryName, libraryDirectory, transformedSourceName));
 
-						const compInstancePath = currentConfigInstance.customName ? currentConfigInstance.customName(`${compDirPath}`) : `${compDirPath}/index.js`;
+						const compInstancePath = currentConfigInstance.customName ? currentConfigInstance.customName(`${transformedSourceName}`) : `${compDirPath}/index.js`;
 						const compInstanceStylePath = currentConfigInstance.customStyleName ? currentConfigInstance.customStyleName(`${transformedSourceName}`) : `${compDirPath}/style.css`;
 
 						return [

@@ -1,8 +1,6 @@
-const babel = require('@babel/core');
-const types = require('@babel/types');
-
+const babel = require('@babel/core')
+const types  = require('@babel/types')
 const plugin = require('../lib/index').default;
-
 const visitor = plugin({ types });
 
 const code = `
@@ -33,11 +31,4 @@ const result = babel.transform(code, {
     ]
 });
 
-
-describe('测试示例', function () {
-    beforeEach(function () {
-    });
-    it('编译成功', function () {
-        console.log(result.code);
-    });
-});
+console.log(result.code);

@@ -6,5 +6,5 @@ after_success:
   - npm run test
 script: karma start karma.conf.js --single-run
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start

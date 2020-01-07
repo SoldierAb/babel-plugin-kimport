@@ -5,8 +5,6 @@
 [![npm downloads](https://img.shields.io/npm/dm/babel-plugin-kimport.svg?style=flat-square)](http://npm-stat.com/charts.html?package=babel-plugin-kimport)
 [![gitter chat](https://img.shields.io/gitter/room/mzabriskie/babel-plugin-kimport.svg?style=flat-square)](https://gitter.im/mzabriskie/babel-plugin-kimport)
 [![build status](https://img.shields.io/travis/SoldierAb/babel-plugin-kimport/master.svg?style=flat-square)](https://travis-ci.org/SoldierAb/babel-plugin-kimport)
-<!-- [![code coverage](https://img.shields.io/coveralls/mzabriskie/babel-plugin-kimport.svg?style=flat-square)](https://coveralls.io/r/mzabriskie/babel-plugin-kimport) -->
-
 
 ## Install
 

@@ -27,29 +27,13 @@ var button = require('components/lib/button')
 require('components/lib/button/style.css')
 ```
 
-## styleLibraryName Example
-
-Converts
-
-```javascript
-import Components from 'components'
-import { Button } from 'components'
-```
-
-to
-
-```javascript
-require('components/lib/styleLibraryName/index.css')
-var button = require('components/lib/styleLibraryName/button.css')
-```
-
 ## Usage
 
 Via `.babelrc` or babel-loader.
 
 ```javascript
 {
-  "plugins": [["component", options]]
+  "plugins": [["kimport", options]]
 }
 ```
 
@@ -59,13 +43,11 @@ Via `.babelrc` or babel-loader.
 
 {
   "plugins": [xxx,
-    ["component", {
+    ["kimport", {
       libraryName: "antd",
-      style: true,
     }, "antd"],
-    ["component", {
+    ["kimport", {
       libraryName: "test-module",
-      style: true,
     }, "test-module"]
   ]
 }
@@ -85,62 +67,85 @@ Via `.babelrc` or babel-loader.
     - style.css
 ```
 
-### Theme library directory structure
-```
-- lib
-  - theme-default // 'styleLibraryName'
-    - base.css // required
-    - index.css // required
-    - componentA.css
-    - componentB.css
-  - theme-material
-    - ...
-  - componentA
-    - index.js
-  - componentB
-    - index.js
-```
 
- or
-
-```
-
-- lib
-  - theme-custom // 'styleLibrary.name'
-    - base.css // if styleLibrary.base true
-    - index.css // required
-    - componentA.css // default 
-    - componentB.css
-  - theme-material
-    - componentA
-      -index.css  // styleLibrary.path  [module]/index.css
-    - componentB
-      -index.css
-  - componentA
-    - index.js
-  - componentB
-    - index.js
-```
 
 ### options
 
 - `["component"]`: import js modularly
 - `["component", { "libraryName": "component" }]`: module name
-- `["component", { "styleLibraryName": "theme_package" }]`: style module name
-- `["component", { "styleLibraryName": "~independent_theme_package" }]`: Import a independent theme package
-- `["component", { "styleLibrary": {} }]`: Import a independent theme package with more config
-  
-  ```
-  styleLibrary: {
-    "name": "xxx", // same with styleLibraryName
-    "base": true,  // if theme package has a base.css
-    "path": "[module]/index.css",  // the style path. e.g. module Alert =>  alert/index.css
-    "mixin": true  // if theme-package not found css file, then use [libraryName]'s css file
-  }
-  ```
+- `["component", { "libraryDirectory": "lib" }]`: lib directory , default `lib`
+- `["component", { "camel2UnderlineComponentName": false }]`: whether parse name to underline mode or not, default `false`
+- `["component", { "camel2DashComponentName": false }]`: whether parse name to dash mode or not, default `false`
 
-- `["component", { "style": true }]`: import js and css from 'style.css'
-- `["component", { "style": cssFilePath }]`: import style css from filePath
-- `["component", { "libDir": "lib" }]`: lib directory
-- `["component", { "root": "index" }]`: main file dir
-- `["component", { "camel2Dash": false }]`: whether parse name to dash mode or not, default `true`
+#### customName
+
+We can use `customName` to customize import file path.
+
+For example, the default behavior:
+
+```typescript
+import { TimePicker } from "antd"
+↓ ↓ ↓ ↓ ↓ ↓
+var _button = require('antd/lib/TimePicker');
+```
+
+You can set `camel2DashComponentName` to `true` to enable transfer from camel to dash:
+
+```typescript
+import { TimePicker } from "antd"
+var _button = require('antd/lib/time-picker');
+↓ ↓ ↓ ↓ ↓ ↓
+```
+
+And finally, you can use `customName` to customize each name parsing:
+
+```js
+[
+  "import",
+    {
+      "libraryName": "antd",
+      "customName": (name: string) => {
+        if (name === 'TimePicker'){
+          return 'antd/lib/custom-time-picker';
+        }
+        return `antd/lib/${name}`;
+      }
+    }
+]
+```
+
+So this result is:
+
+```typescript
+import { TimePicker } from "antd"
+↓ ↓ ↓ ↓ ↓ ↓
+var _button = require('antd/lib/custom-time-picker');
+```
+
+In some cases, the transformer may serialize the configuration object. If we set the `customName` to a function, it will lost after the serialization.
+
+So we also support specifying the customName with a JavaScript source file path:
+
+```js
+[
+  "import",
+    {
+      "libraryName": "antd",
+      "customName": require('path').resolve(__dirname, './customName.js')
+    }
+]
+```
+
+The `customName.js` looks like this:
+
+```js
+module.exports = function customName(name) {
+  return `antd/lib/${name}`;
+};
+```
+
+#### customStyleName
+
+`customStyleName` works exactly the same as customName, except that it deals with style file path.
+
+

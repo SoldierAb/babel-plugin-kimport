@@ -1,7 +1,7 @@
 const babel = require('babel-core');
 const types = require('babel-types');
 
-const plugin = require('./../lib/index.js');
+const plugin = require('../lib/index.js');
 
 const visitor = plugin({types});
 
@@ -21,17 +21,17 @@ const result = babel.transform(code, {
                 "camel2DashComponentName": true,
                 "customName": (name) => {
                     // k-view 1.0.0
-                    if (name === 'bee-option') {
+                    if (name === 'k-option') {
                         return `k-view/src/components/select/${name}`;
                     }
-                    if (name.startsWith('bee-')) {
+                    if (name.startsWith('k-')) {
                         return `k-view/src/components/${name.substr(4)}/${name}`;
                     }
                     if (['radio', 'radio-button', 'radio-group'].includes(name)) {
-                        return `k-view/src/components/radio/bee-${name}`;
+                        return `k-view/src/components/radio/k-${name}`;
                     }
                     if (['checkbox', 'checkbox-button', 'checkbox-group'].includes(name)) {
-                        return `k-view/src/components/checkbox/bee-${name}`;
+                        return `k-view/src/components/checkbox/k-${name}`;
                     }
                     if (name === 'date-combine-range-picker') {
                         name = 'dateCombine-range-picker';

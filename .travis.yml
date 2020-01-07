@@ -4,6 +4,6 @@ node_js:
   - 10
 after_success:
   - npm run test
-script: karma start karma.conf.js --single-run
+script: karma start karma.conf.js --single-run --browsers PhantomJS
 before_script:
   - export DISPLAY=:99.0

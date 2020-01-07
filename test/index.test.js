@@ -1,5 +1,5 @@
-const babel = require('babel-core');
-const types = require('babel-types');
+const babel = require('@babel/core');
+const types = require('@babel/types');
 
 const plugin = require('../lib/index.js');
 

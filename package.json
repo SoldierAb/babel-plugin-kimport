@@ -7,7 +7,8 @@
     "build": "rm -rf lib && babel src --out-dir lib",
     "lint": "eslint --ext .js src --fix",
     "release": "standard-version",
-    "commit": "git add . && git-cz"
+    "commit": "git add . && git-cz",
+    "test": "test --coverage"
   },
   "config": {
     "commitizen": {
@@ -34,14 +35,19 @@
   ],
   "author": "cgj",
   "license": "MIT",
+  "homepage": "https://github.com/ElementUI/babel-plugin-kimport#readme",
+  "bugs": {
+    "url": "https://github.com/SoldierAb/babel-plugin-kimport/issues"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
     "@babel/helper-module-imports": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/register": "^7.7.7",
+    "@babel/types": "^7.7.4",
     "assert": "^2.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-types": "^6.26.0",
     "babylon": "^6.18.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
@@ -52,6 +58,10 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "git-cz": "^3.3.0",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^3.0.1",
+    "karma-mocha": "^1.3.0",
     "lint-staged": "^9.5.0",
     "pre-commit": "^1.2.2",
     "standard-version": "^7.0.1",

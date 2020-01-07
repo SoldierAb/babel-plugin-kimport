@@ -10,7 +10,6 @@ function winPath(path) {
 	return path.replace(/\\/g, '/');
 }
 
-
 function flatArray(arrParam, depArg) {
 	let res = [],
 		depth = depArg || 1,
@@ -34,7 +33,6 @@ function flatArray(arrParam, depArg) {
 	return res;
 }
 
-
 export default function ({ types }) {
 	const Programer = {
 		visitor: {
@@ -42,7 +40,7 @@ export default function ({ types }) {
 				const { node } = path,
 					{ source, specifiers } = node;
 
-				let currentConfigInstance = opts; //plugin 配置
+				let currentConfigInstance = opts;
 
 				if (Array.isArray(opts)) {
 					currentConfigInstance = opts.find(option => option.libraryName === source.value) || {};
@@ -50,23 +48,18 @@ export default function ({ types }) {
 
 				assert(currentConfigInstance.libraryName, '\n\n libraryName should be provided! \n\n');
 
-				//plugin 配置的依赖库libraryName名称
 				const libraryName = currentConfigInstance.libraryName || opts.libraryName || 'k-view';
 
-				//下划线
 				currentConfigInstance.camel2UnderlineComponentName = typeof currentConfigInstance.camel2UnderlineComponentName === 'undefined'
 					? false
 					: currentConfigInstance.camel2UnderlineComponentName;
-				//横杆连接    
 				currentConfigInstance.camel2DashComponentName = typeof currentConfigInstance.camel2DashComponentName === 'undefined'
 					? false
 					: currentConfigInstance.camel2DashComponentName;
 
-				// 确认导入库 是否是 .babelrc library属性指定库 以及 如果不是默认导入 才进行按需导入加载
 				if (libraryName === source.value && !types.isImportDefaultSpecifier(specifiers[0]) && !types.isImportNamespaceSpecifier(specifiers[0])) {
 
-					let newImports = specifiers.map(specifier => { // 遍历 出导入的每个包的说明描述符
-						//转换后的文件名
+					let newImports = specifiers.map(specifier => {
 						const transformedSourceName = currentConfigInstance.camel2UnderlineComponentName
 							? winPath(transCamel(specifier.imported.name, '_'))
 							: currentConfigInstance.camel2DashComponentName
@@ -75,9 +68,7 @@ export default function ({ types }) {
 						const libraryDirectory = typeof currentConfigInstance.libraryDirectory === 'undefined'
 							? 'lib' : currentConfigInstance.libraryDirectory;
 
-						//当前组件路径
 						const compDirPath = winPath(join(libraryName, libraryDirectory, transformedSourceName));
-
 						const compInstancePath = currentConfigInstance.customName ? currentConfigInstance.customName(`${transformedSourceName}`) : `${compDirPath}/index.js`;
 						const compInstanceStylePath = currentConfigInstance.customStyleName ? currentConfigInstance.customStyleName(`${transformedSourceName}`) : `${compDirPath}/style.css`;
 

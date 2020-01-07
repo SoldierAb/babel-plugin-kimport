@@ -2,15 +2,28 @@
   "name": "babel-plugin-kimport",
   "version": "1.0.1",
   "description": "A component modular import plugin for babel ",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
     "lint": "eslint --ext .js src --fix",
-    "prepublish": "npm run build"
+    "release": "standard-version",
+    "commit": "git add . && git-cz"
   },
-  "pre-commit": [
-    "lint"
-  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "node scripts/verify-commit.js"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/SoldierAb/babel-plugin-kimport.git"
@@ -26,15 +39,22 @@
     "assert": "^2.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.3",
     "babel-preset-env": "^1.7.0",
     "babel-types": "^6.26.0",
     "babylon": "^6.18.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
     "eslint": "^5.10.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "pre-commit": "^1.2.2"
+    "git-cz": "^3.3.0",
+    "lint-staged": "^9.5.0",
+    "pre-commit": "^1.2.2",
+    "standard-version": "^7.0.1",
+    "yorkie": "^2.0.0"
   }
 }

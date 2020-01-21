@@ -44,8 +44,8 @@ Via `.babelrc` or babel-loader.
 {
   "plugins": [xxx,
     ["kimport", {
-      libraryName: "antd",
-    }, "antd"],
+      libraryName: "k-view",
+    }, "k-view"],
     ["kimport", {
       libraryName: "test-module",
     }, "test-module"]
@@ -84,17 +84,19 @@ We can use `customName` to customize import file path.
 For example, the default behavior:
 
 ```typescript
-import { TimePicker } from "antd"
+import { TimePicker } from "k-view"
 ↓ ↓ ↓ ↓ ↓ ↓
-var _button = require('antd/lib/TimePicker');
+var _timepicker = require('k-view/lib/time-picker/index.js');
+require('k-view/lib/time-picker/style.css')
 ```
 
-You can set `camel2DashComponentName` to `true` to enable transfer from camel to dash:
+You can set `camel2DashComponentName` to `false` to enable transfer from camel to dash:
 
 ```typescript
-import { TimePicker } from "antd"
-var _button = require('antd/lib/time-picker');
+import { TimePicker } from "k-view"
 ↓ ↓ ↓ ↓ ↓ ↓
+var _timepicker = require('k-view/lib/TimePicker');
+require('k-view/lib/TimePicker/style.css')
 ```
 
 And finally, you can use `customName` to customize each name parsing:
@@ -103,12 +105,12 @@ And finally, you can use `customName` to customize each name parsing:
 [
   "import",
     {
-      "libraryName": "antd",
+      "libraryName": "k-view",
       "customName": (name: string) => {
         if (name === 'TimePicker'){
-          return 'antd/lib/custom-time-picker';
+          return 'k-view/lib/custom-time-picker';
         }
-        return `antd/lib/${name}`;
+        return `k-view/lib/${name}`;
       }
     }
 ]
@@ -117,9 +119,9 @@ And finally, you can use `customName` to customize each name parsing:
 So this result is:
 
 ```typescript
-import { TimePicker } from "antd"
+import { TimePicker } from "k-view"
 ↓ ↓ ↓ ↓ ↓ ↓
-var _button = require('antd/lib/custom-time-picker');
+var _button = require('k-view/lib/custom-time-picker');
 ```
 
 In some cases, the transformer may serialize the configuration object. If we set the `customName` to a function, it will lost after the serialization.
@@ -130,7 +132,7 @@ So we also support specifying the customName with a JavaScript source file path:
 [
   "import",
     {
-      "libraryName": "antd",
+      "libraryName": "k-view",
       "customName": require('path').resolve(__dirname, './customName.js')
     }
 ]
@@ -140,7 +142,7 @@ The `customName.js` looks like this:
 
 ```js
 module.exports = function customName(name) {
-  return `antd/lib/${name}`;
+  return `k-view/lib/${name}`;
 };
 ```
 

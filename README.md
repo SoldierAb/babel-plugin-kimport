@@ -75,7 +75,7 @@ Via `.babelrc` or babel-loader.
 - `["component", { "libraryName": "component" }]`: module name
 - `["component", { "libraryDirectory": "lib" }]`: lib directory , default `lib`
 - `["component", { "camel2UnderlineComponentName": false }]`: whether parse name to underline mode or not, default `false`
-- `["component", { "camel2DashComponentName": false }]`: whether parse name to dash mode or not, default `false`
+- `["component", { "camel2DashComponentName": true }]`: whether parse name to dash mode or not, default `true`
 
 #### customName
 

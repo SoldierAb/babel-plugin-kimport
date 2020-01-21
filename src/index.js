@@ -54,7 +54,7 @@ export default function ({ types }) {
 					? false
 					: currentConfigInstance.camel2UnderlineComponentName;
 				currentConfigInstance.camel2DashComponentName = typeof currentConfigInstance.camel2DashComponentName === 'undefined'
-					? false
+					? true
 					: currentConfigInstance.camel2DashComponentName;
 
 				if (libraryName === source.value && !types.isImportDefaultSpecifier(specifiers[0]) && !types.isImportNamespaceSpecifier(specifiers[0])) {
@@ -71,7 +71,6 @@ export default function ({ types }) {
 						const compDirPath = winPath(join(libraryName, libraryDirectory, transformedSourceName));
 						const compInstancePath = currentConfigInstance.customName ? currentConfigInstance.customName(`${transformedSourceName}`) : `${compDirPath}/index.js`;
 						const compInstanceStylePath = currentConfigInstance.customStyleName ? currentConfigInstance.customStyleName(`${transformedSourceName}`) : `${compDirPath}/style.css`;
-
 						return [
 							types.importDeclaration([types.importDefaultSpecifier(specifier.local)], types.stringLiteral(compInstancePath)),
 							types.callExpression(types.import(), [

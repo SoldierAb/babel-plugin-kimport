@@ -86,7 +86,7 @@ For example, the default behavior:
 ```typescript
 import { TimePicker } from "k-view"
 ↓ ↓ ↓ ↓ ↓ ↓
-var _timepicker = require('k-view/lib/time-picker/index.js');
+var _timepicker = require('k-view/lib/time-picker');
 require('k-view/lib/time-picker/style.css')
 ```
 
@@ -121,7 +121,7 @@ So this result is:
 ```typescript
 import { TimePicker } from "k-view"
 ↓ ↓ ↓ ↓ ↓ ↓
-var _button = require('k-view/lib/custom-time-picker');
+var _timepicker = require('k-view/lib/custom-time-picker');
 ```
 
 In some cases, the transformer may serialize the configuration object. If we set the `customName` to a function, it will lost after the serialization.
